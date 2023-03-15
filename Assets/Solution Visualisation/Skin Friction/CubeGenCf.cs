@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CubeGen : MonoBehaviour
+public class CubeGenCf : MonoBehaviour
 {
     public CSVRead csvRead;
 
@@ -22,7 +22,7 @@ public class CubeGen : MonoBehaviour
             cube.transform.localScale = new Vector3((float)0.001, (float)0.001, (float)0.001);
             Renderer renderer = cube.GetComponent<Renderer>();
             
-            int scaleIndex = Mathf.RoundToInt(Mathf.Clamp(data_set[i].v, 0, 300) / 300f * (colors.Length - 1));
+            int scaleIndex = Mathf.RoundToInt(Mathf.Clamp(data_set[i].v, 0.0000661f, 0.000579f) / 0.000579f * (colors.Length - 1));
             Color color = colors[scaleIndex];
             
             Material material = new Material(Shader.Find("Standard"));
