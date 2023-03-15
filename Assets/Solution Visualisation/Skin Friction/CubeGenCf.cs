@@ -5,7 +5,9 @@ using UnityEngine;
 public class CubeGenCf : MonoBehaviour
 {
     public CSVRead csvRead;
-
+    public float ScaleX = 0.01f;
+    public float ScaleY = 0.01f;
+    public float ScaleZ = 0.01f;
     void Start()
     {
         CSVRead.Points[] data_set = csvRead.ReadCSV();
@@ -19,7 +21,7 @@ public class CubeGenCf : MonoBehaviour
             GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cube.transform.parent = transform;
             cube.transform.position = new Vector3(data_set[i].x, data_set[i].y,0);
-            cube.transform.localScale = new Vector3((float)0.001, (float)0.001, (float)0.001);
+            cube.transform.localScale = new Vector3(ScaleX, ScaleY, ScaleY);
             Renderer renderer = cube.GetComponent<Renderer>();
             
             int scaleIndex = Mathf.RoundToInt(Mathf.Clamp(data_set[i].v, 0.0000661f, 0.000579f) / 0.000579f * (colors.Length - 1));
