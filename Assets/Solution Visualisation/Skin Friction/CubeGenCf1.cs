@@ -20,7 +20,8 @@ public class CubeGenCf1 : MonoBehaviour
         {
             GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cube.transform.parent = transform;
-            cube.transform.position = new Vector3(data_set[i].x, data_set[i].y,0);
+            Vector3 parentPos = transform.position;
+            cube.transform.position = new Vector3(parentPos.x + data_set[i].x, parentPos.y + data_set[i].y, parentPos.z);
             cube.transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
             Renderer renderer = cube.GetComponent<Renderer>();
             
