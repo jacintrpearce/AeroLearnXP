@@ -18,9 +18,15 @@ public class CubeGenCf2 : MonoBehaviour
         for (int i = 0; i < index; i++)
         {
             GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            
+            //Set x and y coordinate with change in AoA = 4 degrees. Refer to ChatGPT
+            // cos -4 = 0.99756405f
+            // sin -4 = -0.069756474f
             cube.transform.parent = transform;
             Vector3 parentPos = transform.position;
-            cube.transform.position = new Vector3(parentPos.x + data_set[i].x, parentPos.y + data_set[i].y, parentPos.z);
+            float locX = parentPos.x + ((data_set[i].x * 0.99756405f) - (data_set[i].y * -0.069756474f));
+            float locY = parentPos.y + ((data_set[i].x * -0.069756474f) + (data_set[i].y * 0.99756405f));
+            cube.transform.position = new Vector3(locX, locY , parentPos.z);
             cube.transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
             Renderer renderer = cube.GetComponent<Renderer>();
 
