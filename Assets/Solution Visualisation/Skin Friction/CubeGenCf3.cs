@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class CubeGenCf3 : MonoBehaviour
 {
-    public CSVRead csvRead;
+    public CSVReadCF csvRead;
     public float scaleX = 0.007f;
     public float scaleY = 0.007f;
     public float scaleZ = 0.007f;
     void Start()
     {
-        CSVRead.Points[] data_set = csvRead.ReadCSV();
+        CSVReadCF.Points[] data_set = csvRead.ReadCSV();
         int index = data_set.Length;
         
         //Colour array
@@ -26,7 +26,7 @@ public class CubeGenCf3 : MonoBehaviour
             Vector3 parentPos = transform.position;
             float locX = parentPos.x + ((data_set[i].x * 0.990268069f) - (data_set[i].y * -0.139173101f));
             float locY = parentPos.y + ((data_set[i].x * -0.139173101f) + (data_set[i].y * 0.990268069f));
-            cube.transform.position = new Vector3(locX, locY , parentPos.z);
+            cube.transform.position = new Vector3(locX, locY , -parentPos.z);
             cube.transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
             Renderer renderer = cube.GetComponent<Renderer>();
             

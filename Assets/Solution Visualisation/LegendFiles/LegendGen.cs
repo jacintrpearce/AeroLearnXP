@@ -27,9 +27,9 @@ public class LegendGen : MonoBehaviour
             GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cube.transform.parent = transform;
             Vector3 parentPos = transform.position;
-            float l = i * 0.1f; // set the spacing of cubes
+            float l = (i * 0.05f); // set the spacing of cubes
             cube.transform.position = new Vector3(parentPos.x, parentPos.y + l, parentPos.z); // position of the cube
-            cube.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f); // set the scale of the cube
+            cube.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f); // set the scale of the cube
             cube.GetComponent<Renderer>().material.color = colors[i]; // set the color of the cube
 
         }
