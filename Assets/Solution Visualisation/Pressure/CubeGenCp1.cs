@@ -18,20 +18,24 @@ public class CubeGenCp1 : MonoBehaviour
         
         for (int i = 0; i < index; i++)
         {
-            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            cube.transform.parent = transform;
-            Vector3 parentPos = transform.position;
-            cube.transform.position = new Vector3(parentPos.x + data_setCp[i].x, parentPos.y + data_setCp[i].y, -parentPos.z);
-            cube.transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
-            Renderer renderer = cube.GetComponent<Renderer>();
+            if (data_setCp[i].x != 0 && data_setCp[i].y != 0)
+            {
+                GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                cube.transform.parent = transform;
+                Vector3 parentPos = transform.position;
+                cube.transform.position = new Vector3(parentPos.x + data_setCp[i].x, parentPos.y + data_setCp[i].y, -parentPos.z);
+                cube.transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
+                Renderer renderer = cube.GetComponent<Renderer>();
             
-            int scaleIndex = Mathf.RoundToInt(Mathf.Clamp(data_setCp[i].v, 0.0000661f, 0.000579f) / 0.000579f * (colors.Length - 1));
-            Color color = colors[scaleIndex];
+                int scaleIndex = Mathf.RoundToInt(Mathf.Clamp(data_setCp[i].v, 0.0000661f, 0.000579f) / 0.000579f * (colors.Length - 1));
+                Color color = colors[scaleIndex];
             
-            Material material = new Material(Shader.Find("Standard"));
-            material.color = color;
-            renderer.material = material;
-            
+                Material material = new Material(Shader.Find("Standard"));
+                material.color = color;
+                renderer.material = material;
+
+            }
+           
         }
     }
 }
