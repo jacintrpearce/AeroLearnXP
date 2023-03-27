@@ -55,10 +55,10 @@ public class CubeGenCp1 : MonoBehaviour
        // Update Legend Max and Min values
        GameObject maxObject = GameObject.Find("Max 1");
        TextMeshPro maxText = maxObject.GetComponent<TextMeshPro>();
-       maxText.text = maxV.ToString("0.##E+0");
+       maxText.text = "Max: " + maxV.ToString("0.##E+0");
        
        GameObject minObject = GameObject.Find("Min 1");
        TextMeshPro minText = minObject.GetComponent<TextMeshPro>();
-       minText.text = minV.ToString("0.##E+0");
+       minText.text = "Min: " + minV.ToString("0.##E+0");
     }
 }
