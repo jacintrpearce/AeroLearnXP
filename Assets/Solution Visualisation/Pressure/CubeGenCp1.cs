@@ -46,7 +46,7 @@ public class CubeGenCp1 : MonoBehaviour
             Renderer renderer = cube.GetComponent<Renderer>();
 
             int scaleIndex = Mathf.RoundToInt(Mathf.Clamp(data_setCp[i].v, Mathf.Abs(minV), Mathf.Abs(maxV)) / Mathf.Abs(maxV) * (colors.Length - 1));
-            Color color = colors[scaleIndex];
+            Color color = colors[Mathf.Clamp(scaleIndex, 0, colors.Length - 1)];
 
             Material material = new Material(Shader.Find("Standard"));
             material.color = color;
