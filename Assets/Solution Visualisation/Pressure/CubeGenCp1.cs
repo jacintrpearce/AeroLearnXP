@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CubeGenCp1 : MonoBehaviour
 {
     public CSVReadCp csvRead;
-    public float scaleX = 0.01f;
-    public float scaleY = 0.01f;
+    public float scaleX = 0.007f;
+    public float scaleY = 0.007f;
     public float scaleZ = 0.01f;
 
     void Start()
@@ -51,5 +52,11 @@ public class CubeGenCp1 : MonoBehaviour
             material.color = color;
             renderer.material = material;
         }
+        // Update legend to max and min values
+        TextMeshProUGUI textObjectMax = GameObject.Find("Max 1").GetComponent<TextMeshProUGUI>();
+        textObjectMax.text = "Max: " + maxV;
+        
+        TextMeshProUGUI textObjectMin = GameObject.Find("Min 1").GetComponent<TextMeshProUGUI>();
+        textObjectMin.text = "Min: " + minV;
     }
 }
