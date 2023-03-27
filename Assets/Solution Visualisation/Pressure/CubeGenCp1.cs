@@ -53,7 +53,7 @@ public class CubeGenCp1 : MonoBehaviour
             renderer.material = material;
         }
         // Show max and min values for legend reference
-        Debug.Log("Max: " + maxV);
-        Debug.Log("Min: " + minV);
+        Debug.Log("Max1: " + maxV);
+        Debug.Log("Min1: " + minV);
     }
 }
