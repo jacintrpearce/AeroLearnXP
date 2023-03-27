@@ -52,17 +52,8 @@ public class CubeGenCp1 : MonoBehaviour
             material.color = color;
             renderer.material = material;
         }
-        // Update legend to max and min values
-        // Find the Legend 1 object using its path relative to the current game object
-        Transform legend1Transform = transform.Find("PressureCoeff Obj/rae2822 1 (1)/Legend 1");
-
-        // Get the TextMeshProUGUI component from the Max 1 and Min 1 children of Legend 1
-        TextMeshProUGUI textObjectMax = legend1Transform.Find("Max 1").GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI textObjectMin = legend1Transform.Find("Min 1").GetComponent<TextMeshProUGUI>();
-
-        // Set the text of the Max and Min objects to the calculated values
-        textObjectMax.text = "Max: " + maxV;
-        textObjectMin.text = "Min: " + minV;
-
+        // Show max and min values for legend reference
+        Debug.Log("Max: " + maxV);
+        Debug.Log("Min: " + minV);
     }
 }
