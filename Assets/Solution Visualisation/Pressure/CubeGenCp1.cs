@@ -52,8 +52,13 @@ public class CubeGenCp1 : MonoBehaviour
             material.color = color;
             renderer.material = material;
         }
-        // Show max and min values for legend reference
-        Debug.Log("Max1 Cp: " + maxV);
-        Debug.Log("Min1 Cp: " + minV);
+       // Update Legend Max and Min values
+       GameObject maxObject = GameObject.Find("Max 1");
+       TextMeshPro maxText = maxObject.GetComponent<TextMeshPro>();
+       maxText.text = maxV.ToString("0.##E+0");
+       
+       GameObject minObject = GameObject.Find("Min 1");
+       TextMeshPro minText = minObject.GetComponent<TextMeshPro>();
+       minText.text = minV.ToString("0.##E+0");
     }
 }
