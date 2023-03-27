@@ -53,10 +53,12 @@ public class CubeGenCp1 : MonoBehaviour
             renderer.material = material;
         }
         // Update legend to max and min values
-        TextMeshProUGUI textObjectMax = GameObject.Find("Max 1").GetComponent<TextMeshProUGUI>();
+        Transform legend = GameObject.Find("Legend 1").transform;
+
+        TextMeshProUGUI textObjectMax = legend.Find("Max 1").GetComponent<TextMeshProUGUI>();
         textObjectMax.text = "Max: " + maxV;
-        
-        TextMeshProUGUI textObjectMin = GameObject.Find("Min 1").GetComponent<TextMeshProUGUI>();
+
+        TextMeshProUGUI textObjectMin = legend.Find("Min 1").GetComponent<TextMeshProUGUI>();
         textObjectMin.text = "Min: " + minV;
     }
 }
