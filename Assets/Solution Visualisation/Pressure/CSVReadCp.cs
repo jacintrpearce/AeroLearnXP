@@ -5,6 +5,15 @@ using UnityEngine;
 public class CSVReadCp : MonoBehaviour
 {
     public TextAsset csvFile;
+    // X limits
+    public int xLimGeom1 = 0;
+    public int xLimGeom2 = 1;
+    public float xLimFF1 = -0.2f;
+    public float xLimFF2 = 1.2f;
+    // Y limits
+    public int yLimGeom1 = 0;
+    public float yLimGeom2 = 0.01f;
+    public float yLimFF = 0.15f;
 
     [System.Serializable]
 
@@ -22,7 +31,7 @@ public class CSVReadCp : MonoBehaviour
             // initialize an empty list to store the valid points
             List<PointsCp> data_setCp = new List<PointsCp>();
             var rowCounter = 0;
-
+            
             for (int j = 0; j < elements.Length / 4; j++)
             {
                 float x = float.Parse(elements[4 * j]);
@@ -32,10 +41,10 @@ public class CSVReadCp : MonoBehaviour
                 rowCounter++;
                 
                 // Check the values to be saved starting from aerofoil in the x direction
-                if (x >= 0 && x <= 1f)
+                if (x >= xLimGeom1 && x <= xLimGeom2)
                 {
                     // Only save values corresponding to N number of rows (even (N = 2), every 3 (N = 3) etc)
-                    if (rowCounter % 2 == 0 && Mathf.Abs(y) > 0.05f && Mathf.Abs(y) < 0.15f)
+                    if (rowCounter % 2 == 0 && Mathf.Abs(y) >= yLimGeom2 && Mathf.Abs(y) < yLimFF)
                     {
                         PointsCp point = new PointsCp();
                         point.x = x;
@@ -45,7 +54,7 @@ public class CSVReadCp : MonoBehaviour
                         data_setCp.Add(point);
                     } 
                     // Data closer to aerofoil
-                    else if (rowCounter % 2 == 0 && Mathf.Abs(y) > 0 && Mathf.Abs(y) < 0.01f)
+                    else if (rowCounter % 2 == 0 && Mathf.Abs(y) > yLimGeom1 && Mathf.Abs(y) < yLimGeom2)
                     {
                         PointsCp point = new PointsCp();
                         point.x = x;
@@ -56,7 +65,7 @@ public class CSVReadCp : MonoBehaviour
                     }
                 }
                 // Data upstream and downstream of aerofoil
-                else if ((x < 0 && x > -0.2f) || (x > 1 && x < 1.2f))
+                else if ((x < xLimGeom1 && x > xLimFF1) || (x > xLimGeom2 && x < xLimFF2))
                 {
                     // Only save values corresponding to N number of rows (even (N = 2), every 3 (N = 3) etc)
                     if (rowCounter % 2 == 0)
