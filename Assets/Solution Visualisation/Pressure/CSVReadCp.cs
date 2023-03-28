@@ -65,10 +65,10 @@ public class CSVReadCp : MonoBehaviour
                     }
                 }
                 // Data upstream and downstream of aerofoil
-                else if ((x < xLimGeom1 && x > xLimFF1) || (x > xLimGeom2 && x < xLimFF2))
+                else if ((x < xLimGeom1 && x > xLimFF1 ) || (x > xLimGeom2 && x < xLimFF2))
                 {
                     // Only save values corresponding to N number of rows (even (N = 2), every 3 (N = 3) etc)
-                    if (rowCounter % 2 == 0)
+                    if (rowCounter % 2 == 0 && Mathf.Abs(y) >= yLimGeom1 && Mathf.Abs(y) < yLimFF)
                     {
                         PointsCp point = new PointsCp();
                         point.x = x;
