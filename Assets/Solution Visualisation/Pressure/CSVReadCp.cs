@@ -5,15 +5,6 @@ using UnityEngine;
 public class CSVReadCp : MonoBehaviour
 {
     public TextAsset csvFile;
-    // X limits
-    public int xLimGeom1 = 0;
-    public int xLimGeom2 = 1;
-    public float xLimFF1 = -0.2f;
-    public float xLimFF2 = 1.2f;
-    // Y limits
-    public int yLimGeom1 = 0;
-    public float yLimGeom2 = 0.01f;
-    public float yLimFF = 0.15f;
 
     [System.Serializable]
 
@@ -31,6 +22,15 @@ public class CSVReadCp : MonoBehaviour
             // initialize an empty list to store the valid points
             List<PointsCp> data_setCp = new List<PointsCp>();
             var rowCounter = 0;
+            // X limits
+            var xLimGeom1 = 0;
+            var xLimGeom2 = 1;
+            float xLimFF1 = -0.2f;
+            float xLimFF2 = 1.2f;
+            // Y limits
+            var yLimGeom1 = 0;
+            float yLimGeom2 = 0.01f;
+            float yLimFF = 0.15f;
             
             for (int j = 0; j < elements.Length / 4; j++)
             {
