@@ -45,7 +45,7 @@ public class CubeGenCp1 : MonoBehaviour
             cube.transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
             Renderer renderer = cube.GetComponent<Renderer>();
 
-            int scaleIndex = Mathf.RoundToInt(Mathf.Clamp(data_setCp[i].v, Mathf.Abs(minV), Mathf.Abs(maxV)) / Mathf.Abs(maxV) * (colors.Length - 1));
+            int scaleIndex = Mathf.RoundToInt(Mathf.Clamp((data_setCp[i].v - minV) / (maxV - minV), 0f, 1f) * (colors.Length - 1));
             Color color = colors[Mathf.Clamp(scaleIndex, 0, colors.Length - 1)];
 
             Material material = new Material(Shader.Find("Standard"));
