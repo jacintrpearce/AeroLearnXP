@@ -32,7 +32,7 @@ public class CSVReadCp : MonoBehaviour
                 rowCounter++;
                 
                 // Check the values to be saved starting from aerofoil in the x direction
-                if (x >= 0 && x < 1f)
+                if (x >= 0 && x <= 1f)
                 {
                     // Only save values corresponding to N number of rows (even (N = 2), every 3 (N = 3) etc)
                     if (rowCounter % 2 == 0 && Mathf.Abs(y) > 0.05 && Mathf.Abs(y) < 0.15)
