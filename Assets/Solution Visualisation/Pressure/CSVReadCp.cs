@@ -35,7 +35,7 @@ public class CSVReadCp : MonoBehaviour
                 if (x >= 0 && x <= 1f)
                 {
                     // Only save values corresponding to N number of rows (even (N = 2), every 3 (N = 3) etc)
-                    if (rowCounter % 2 == 0 && Mathf.Abs(y) > 0.05 && Mathf.Abs(y) < 0.15)
+                    if (rowCounter % 2 == 0 && Mathf.Abs(y) > 0.05f && Mathf.Abs(y) < 0.15f)
                     {
                         PointsCp point = new PointsCp();
                         point.x = x;
@@ -45,7 +45,7 @@ public class CSVReadCp : MonoBehaviour
                         data_setCp.Add(point);
                     } 
                     // Data closer to aerofoil
-                    else if (rowCounter % 2 == 0 && Mathf.Abs(y) > 0.05 && Mathf.Abs(y) < 0.15)
+                    else if (rowCounter % 2 == 0 && Mathf.Abs(y) > 0 && Mathf.Abs(y) < 0.01f)
                     {
                         PointsCp point = new PointsCp();
                         point.x = x;
