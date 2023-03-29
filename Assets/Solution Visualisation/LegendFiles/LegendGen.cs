@@ -22,6 +22,8 @@ public class LegendGen : MonoBehaviour
 
     void Start()
     {
+        transform.localRotation = Quaternion.Euler(0, 0, transform.parent.eulerAngles.z);
+
         for (int i = 0; i < colors.Length; i++)
         {
             GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
