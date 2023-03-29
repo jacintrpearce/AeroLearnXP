@@ -89,8 +89,4 @@ public class CSVReadCp : MonoBehaviour
         ReadCSV();
     }
 }
-// //float range = maxV - minV;
-// float normalizedValue = (data_set[i].v - minV) / range;
-// int scaleIndex = Mathf.FloorToInt(normalizedValue * colors.Length);
-// Color color = colors[scaleIndex];
 
