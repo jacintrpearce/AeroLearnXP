@@ -16,15 +16,20 @@ public class CubeGenCp1 : MonoBehaviour
         float maxV = float.MinValue;
         float minV = float.MaxValue;
         
-        //Colour array
-        var colors = new[]
-        {
-            Color.blue, Color.Lerp(Color.blue, Color.cyan, 0.25f), Color.cyan,
-            Color.Lerp(Color.cyan, Color.green, 0.25f), Color.green, Color.Lerp(Color.green, Color.yellow, 0.25f),
-            Color.yellow, Color.Lerp(Color.yellow, new Color(1.0f, 0.5f, 0f), 0.25f), new Color(1.0f, 0.5f, 0f),
-            Color.Lerp(new Color(1.0f, 0.5f, 0f), Color.red, 0.25f), Color.red
-        };
+        var colors = new List<Color>();
+        int numColors = 20;
+        // Add first color (blue)
+        colors.Add(Color.blue);
 
+        // Add 18 intermediate colors between blue and red
+        for (int i = 1; i < 19; i++)
+        {
+            Color color = Color.Lerp(Color.blue, Color.red, (float)i / (numColors - 1));
+            colors.Add(color);
+        }
+
+        // Add last color (red)
+        colors.Add(Color.red);
         for (int i = 0; i < data_setCp.Length; i++)
         {
             float v = data_setCp[i].v;
@@ -45,20 +50,20 @@ public class CubeGenCp1 : MonoBehaviour
             cube.transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
             Renderer renderer = cube.GetComponent<Renderer>();
 
-            int scaleIndex = Mathf.RoundToInt(Mathf.Clamp((data_setCp[i].v - minV) / (maxV - minV), 0f, 1f) * (colors.Length - 1));
-            Color color = colors[Mathf.Clamp(scaleIndex, 0, colors.Length - 1)];
+            int scaleIndex = Mathf.RoundToInt(Mathf.Clamp((data_setCp[i].v - minV) / (maxV - minV), 0f, 1f) * (numColors - 1));
+            Color color = colors[Mathf.Clamp(scaleIndex, 0, numColors - 1)];
 
             Material material = new Material(Shader.Find("Standard"));
             material.color = color;
             renderer.material = material;
         }
-       // Update Legend Max and Min values
-       GameObject maxObject = GameObject.Find("Max 1");
-       TextMeshPro maxText = maxObject.GetComponent<TextMeshPro>();
-       maxText.text = "Max: " + maxV.ToString("0.##E+00");
+        // Update Legend Max and Min values
+        GameObject maxObject = GameObject.Find("Max 1");
+        TextMeshPro maxText = maxObject.GetComponent<TextMeshPro>();
+        maxText.text = "Max: " + maxV.ToString("0.##E+00");
        
-       GameObject minObject = GameObject.Find("Min 1");
-       TextMeshPro minText = minObject.GetComponent<TextMeshPro>();
-       minText.text = "Min: " + minV.ToString("0.##E+00");
+        GameObject minObject = GameObject.Find("Min 1");
+        TextMeshPro minText = minObject.GetComponent<TextMeshPro>();
+        minText.text = "Min: " + minV.ToString("0.##E+00");
     }
 }
