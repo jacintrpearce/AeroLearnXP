@@ -50,7 +50,7 @@ public class CubeGenCf4 : MonoBehaviour
             Renderer renderer = cube.GetComponent<Renderer>();
     
             // Specify min and max CF values
-            int scaleIndex = Mathf.RoundToInt(Mathf.Clamp(data_set[i].v, 0.0000182993f, 0.0014567246f) / 0.0014567246f * (colors.Length - 1));
+            int scaleIndex = Mathf.RoundToInt(Mathf.Clamp(data_set[i].v, minV, maxV) / maxV * (colors.Length - 1));
             Color color = colors[scaleIndex];
 
             Material material = new Material(Shader.Find("Standard"));
