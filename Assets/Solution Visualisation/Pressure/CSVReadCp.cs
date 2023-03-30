@@ -90,3 +90,14 @@ public class CSVReadCp : MonoBehaviour
     }
 }
 
+// int scaleIndex;
+//
+// if (data_setTest[i].x = minV) {
+//     index = 0;
+// } else if (data_setTest[i].x = maxV) {
+//     scaleIndex = colors.Length - 1;
+// } else {
+//     float range = maxV - minV;
+//     float normalizedValue = (data_setTest[i].x - minV) / range;
+//     scaleIndex = Mathf.FloorToInt(normalizedValue * colors.Length);
+// }
