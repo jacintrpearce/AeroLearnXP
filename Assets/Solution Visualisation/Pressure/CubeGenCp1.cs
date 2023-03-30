@@ -56,7 +56,7 @@ public class CubeGenCp1 : MonoBehaviour
             } else 
             {
                 float range = maxV - minV;
-                float normalizedValue = (data_setCp[i].x - minV) / range;
+                float normalizedValue = (data_setCp[i].v - minV) / range;
                 scaleIndex = Mathf.FloorToInt(normalizedValue * colors.Length);
             }
             Color color = colors[Mathf.Clamp(scaleIndex, 0, colors.Length - 1)];
