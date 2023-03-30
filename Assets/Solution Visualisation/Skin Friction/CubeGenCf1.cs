@@ -25,9 +25,9 @@ public class CubeGenCf1 : MonoBehaviour
         //Colour array
         var colors = new[] { Color.blue, Color.Lerp(Color.blue, Color.cyan, 0.25f), Color.cyan, Color.Lerp(Color.cyan, Color.green, 0.25f), Color.green, Color.Lerp(Color.green, Color.yellow, 0.25f), Color.yellow, Color.Lerp(Color.yellow, new Color(1.0f, 0.5f, 0f), 0.25f), new Color(1.0f, 0.5f, 0f), Color.Lerp(new Color(1.0f, 0.5f, 0f), Color.red, 0.25f), Color.red };
         
-        for (int i = 0; i < index; i++)
+        for (int j = 0; j < data_set.Length; j++)
         {
-            float v = data_set[i].v;
+            float v = data_set[j].v;
 
             if (v > maxV)
             {
@@ -38,6 +38,10 @@ public class CubeGenCf1 : MonoBehaviour
             {
                 minV = v;
             }
+        }
+        
+        for (int i = 0; i < index; i++)
+        {
             GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
             cube.transform.parent = transform;
