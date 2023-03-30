@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ColourGradient : MonoBehaviour
 {
-    public Gradient GetGradient()
+    public Gradient ColorGrad()
     {
         Gradient gradient = new Gradient();
         GradientColorKey[] colorKeys = new GradientColorKey[2];
@@ -21,7 +21,6 @@ public class ColourGradient : MonoBehaviour
 
     void Start()
     {
-        Gradient gradient = GetGradient();
-        // use the gradient variable here
+        Gradient gradient = ColorGrad();
     }
 }
