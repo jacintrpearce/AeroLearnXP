@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class ColourGradient : MonoBehaviour
+public static class ColorGradient
 {
-    public Gradient GetGradient()
+    public static Gradient GetGradient()
     {
         Gradient gradient = new Gradient();
         // Add color keys and alpha keys to the gradient
@@ -17,7 +17,6 @@ public class ColourGradient : MonoBehaviour
         alphaKeys[1].alpha = 1.0f;
         alphaKeys[1].time = 1.0f;
         gradient.SetKeys(colorKeys, alphaKeys);
-        
         return gradient;
     }
 }
