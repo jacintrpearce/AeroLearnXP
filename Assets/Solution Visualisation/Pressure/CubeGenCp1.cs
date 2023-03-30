@@ -24,10 +24,10 @@ public class CubeGenCp1 : MonoBehaviour
             Color.yellow, Color.Lerp(Color.yellow, new Color(1.0f, 0.5f, 0f), 0.25f), new Color(1.0f, 0.5f, 0f),
             Color.Lerp(new Color(1.0f, 0.5f, 0f), Color.red, 0.25f), Color.red
         };
-
-        for (int i = 0; i < data_setCp.Length; i++)
+        
+        for (int j = 0; j < data_setCp.Length; j++)
         {
-            float v = data_setCp[i].v;
+            float v = data_setCp[j].v;
 
             if (v > maxV)
             {
@@ -38,6 +38,10 @@ public class CubeGenCp1 : MonoBehaviour
             {
                 minV = v;
             }
+        }
+
+        for (int i = 0; i < data_setCp.Length; i++)
+        {
             GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cube.transform.parent = transform;
             Vector3 parentPos = transform.position;
