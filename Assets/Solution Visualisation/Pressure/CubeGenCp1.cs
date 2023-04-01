@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -13,9 +12,16 @@ public class CubeGenCp1 : MonoBehaviour
     void Start()
     {
         CSVReadCp.PointsCp[] data_setCp = csvRead.ReadCSV();
+        int index = data_setCp.Length;
         float maxV = float.MinValue;
         float minV = float.MaxValue;
         
+        // Extract angle of attack of aerofoil based on the Z rotation angle in degrees
+        float aoa = transform.parent.rotation.eulerAngles.z;
+        float aoaRad = aoa * Mathf.Deg2Rad;
+        float sinAoA = Mathf.Sin(aoaRad);
+        float cosAoA = Mathf.Cos(aoaRad);
+
         //Colour array
         var colors = new[]
         {
@@ -24,8 +30,8 @@ public class CubeGenCp1 : MonoBehaviour
             Color.yellow, Color.Lerp(Color.yellow, new Color(1.0f, 0.5f, 0f), 0.25f), new Color(1.0f, 0.5f, 0f),
             Color.Lerp(new Color(1.0f, 0.5f, 0f), Color.red, 0.25f), Color.red
         };
-        
-        for (int j = 0; j < data_setCp.Length; j++)
+
+        for (int j = 0; j < index; j++)
         {
             float v = data_setCp[j].v;
 
@@ -39,16 +45,20 @@ public class CubeGenCp1 : MonoBehaviour
                 minV = v;
             }
         }
-
-        for (int i = 0; i < data_setCp.Length; i++)
+        
+        for (int i = 0; i < index; i++)
         {
             GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+
             cube.transform.parent = transform;
             Vector3 parentPos = transform.position;
-            cube.transform.position = new Vector3(parentPos.x + data_setCp[i].x, parentPos.y + data_setCp[i].y, -parentPos.z);
+            
+            float locX = parentPos.x + ((data_setCp[i].x * cosAoA) - (data_setCp[i].y * sinAoA));
+            float locY = parentPos.y + ((data_setCp[i].x * sinAoA) + (data_setCp[i].y * cosAoA));
+            cube.transform.position = new Vector3(locX, locY , parentPos.z);
             cube.transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
             Renderer renderer = cube.GetComponent<Renderer>();
-
+    
             int scaleIndex;
 
             if (data_setCp[i].v == minV) 
@@ -68,14 +78,15 @@ public class CubeGenCp1 : MonoBehaviour
             Material material = new Material(Shader.Find("Standard"));
             material.color = color;
             renderer.material = material;
+
         }
-       // Update Legend Max and Min values
-       GameObject maxObject = GameObject.Find("Max 1");
-       TextMeshPro maxText = maxObject.GetComponent<TextMeshPro>();
-       maxText.text = "Max: " + maxV.ToString("0.##E+00");
+        // Update Legend Max and Min values
+        GameObject maxObject = GameObject.Find("Max 1");
+        TextMeshPro maxText = maxObject.GetComponent<TextMeshPro>();
+        maxText.text = "Max: " + maxV.ToString("0.##E+00");
        
-       GameObject minObject = GameObject.Find("Min 1");
-       TextMeshPro minText = minObject.GetComponent<TextMeshPro>();
-       minText.text = "Min: " + minV.ToString("0.##E+00");
+        GameObject minObject = GameObject.Find("Min 1");
+        TextMeshPro minText = minObject.GetComponent<TextMeshPro>();
+        minText.text = "Min: " + minV.ToString("0.##E+00");
     }
 }
