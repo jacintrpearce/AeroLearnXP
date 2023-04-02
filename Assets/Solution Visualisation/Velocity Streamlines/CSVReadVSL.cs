@@ -27,7 +27,7 @@ public class CSVReadVSL                        : MonoBehaviour
             float xLimFF2 = 1.2f;
             // Y limits
             var yLimGeom1 = 0;
-            float yLimFF = 10f;
+            float yLimFF = 1f;
             
             for (int j = 0; j < elements.Length / 4; j++)
             {
