@@ -41,7 +41,7 @@ public class CSVReadVSL                        : MonoBehaviour
                 if ((x > xLimFF1 && x < xLimFF2))
                 {
                     // Only save values corresponding to N number of rows (even (N = 2), every 3 (N = 3) etc)
-                    if (rowCounter % 1 == 0 && Mathf.Abs(y) >= yLimGeom1 && Mathf.Abs(y) < yLimFF)
+                    if (rowCounter % 2 == 0 && Mathf.Abs(y) >= yLimGeom1 && Mathf.Abs(y) < yLimFF)
                     {
                         PointsSL point = new PointsSL();
                         point.x = x;
