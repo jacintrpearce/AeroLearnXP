@@ -6,6 +6,9 @@ using UnityEngine;
 public class CSVReadCp : MonoBehaviour
 {
     public TextAsset csvFile;
+    public int rowSkip1 = 2;
+    public int rowSkip2 = 2;
+    public int rowSkip3 = 2;
 
     [System.Serializable]
     public class PointsCp
@@ -41,7 +44,7 @@ public class CSVReadCp : MonoBehaviour
 
                 if (x >= xLimGeom1 && x <= xLimGeom2)
                 {
-                    if (rowCounter % 2 == 0 && Mathf.Abs(y) >= yLimGeom2 && Mathf.Abs(y) < yLimFF)
+                    if (rowCounter % rowSkip1 == 0 && Mathf.Abs(y) >= yLimGeom2 && Mathf.Abs(y) < yLimFF)
                     {
                         PointsCp point = new PointsCp();
                         point.x = x;
@@ -49,7 +52,7 @@ public class CSVReadCp : MonoBehaviour
                         point.v = v;
                         data_setCp.Add(point);
                     }
-                    else if (rowCounter % 2 == 0 && Mathf.Abs(y) > yLimGeom1 && Mathf.Abs(y) < yLimGeom2)
+                    else if (rowCounter % rowSkip2 == 0 && Mathf.Abs(y) > yLimGeom1 && Mathf.Abs(y) < yLimGeom2)
                     {
                         PointsCp point = new PointsCp();
                         point.x = x;
@@ -60,7 +63,7 @@ public class CSVReadCp : MonoBehaviour
                 }
                 else if ((x < xLimGeom1 && x > xLimFF1) || (x > xLimGeom2 && x < xLimFF2))
                 {
-                    if (rowCounter % 2 == 0 && Mathf.Abs(y) >= yLimGeom1 && Mathf.Abs(y) < yLimFF)
+                    if (rowCounter % rowSkip3 == 0 && Mathf.Abs(y) >= yLimGeom1 && Mathf.Abs(y) < yLimFF)
                     {
                         PointsCp point = new PointsCp();
                         point.x = x;

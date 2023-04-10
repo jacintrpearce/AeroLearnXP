@@ -5,7 +5,7 @@ using UnityEngine;
 public class SLGen1 : MonoBehaviour
 {
     public CSVReadVSL csvRead;
-    public float radius = 0.001f;
+    public float radius = 0.01f;
 
     void Start()
     {
@@ -51,7 +51,7 @@ public class SLGen1 : MonoBehaviour
             CSVReadVSL.PointsSL closestPoint = FindClosestPoint(data_setSL[i], data_setSL);
 
             // Calculate the distance between the two points
-            float distance = Vector2.Distance(new Vector2(data_setSL[i].x, data_setSL[i].y),
+            float distance = Vector2.Distance(new Vector2(data_setSL[i].x, data_setSL[i].y), 
                 new Vector2(closestPoint.x, closestPoint.y));
 
             // Instantiate a new streamline prefab at the seed point's position
@@ -64,13 +64,13 @@ public class SLGen1 : MonoBehaviour
             streamline.transform.position = new Vector3(locX, locY, parentPos.z);
 
             // Set the streamline's rotation to the direction of the velocity at that point
-            float vx = data_setSL[i].vx;
-            float vy = data_setSL[i].vy;
+            float vx = (data_setSL[i].vx * cosAoA) - (data_setSL[i].vy * sinAoA);
+            float vy = (data_setSL[i].vx * sinAoA) + (data_setSL[i].vy * cosAoA);
             float angle = Mathf.Atan2(vy, vx) * Mathf.Rad2Deg;
             streamline.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + 90));
             streamline.transform.localScale = new Vector3(radius, distance, radius);
-            Renderer renderer = streamline.GetComponent<Renderer>();
-    
+
+            // Colour the streamlines
             int scaleIndex;
 
             if (data_setSL[i].v == minV) 
@@ -89,6 +89,7 @@ public class SLGen1 : MonoBehaviour
 
             Material material = new Material(Shader.Find("Standard"));
             material.color = color;
+            Renderer renderer = streamline.GetComponent<Renderer>();
             renderer.material = material;
         }
         // Update Legend Max and Min values
