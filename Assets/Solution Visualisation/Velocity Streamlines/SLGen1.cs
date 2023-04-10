@@ -5,9 +5,7 @@ using UnityEngine;
 public class SLGen1 : MonoBehaviour
 {
     public CSVReadVSL csvRead;
-    public float radiusX = 0.007f;
-    public float radiusZ = 0.007f;
-    public float length = 0.0001f;
+    public float radius = 0.001f;
 
     void Start()
     {
@@ -45,20 +43,33 @@ public class SLGen1 : MonoBehaviour
                 minV = v;
             }
         }
-        
+
+        // Loop through each seed point in the data_setSL array
         for (int i = 0; i < index; i++)
         {
-            GameObject cylinder = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            // Find the closest point in the data set to the current point
+            CSVReadVSL.PointsSL closestPoint = FindClosestPoint(data_setSL[i], data_setSL);
 
-            cylinder.transform.parent = transform;
+            // Calculate the distance between the two points
+            float distance = Vector2.Distance(new Vector2(data_setSL[i].x, data_setSL[i].y),
+                new Vector2(closestPoint.x, closestPoint.y));
+
+            // Instantiate a new streamline prefab at the seed point's position
+            GameObject streamline = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            streamline.transform.parent = transform;
             Vector3 parentPos = transform.position;
-            
+
             float locX = parentPos.x + ((data_setSL[i].x * cosAoA) - (data_setSL[i].y * sinAoA));
             float locY = parentPos.y + ((data_setSL[i].x * sinAoA) + (data_setSL[i].y * cosAoA));
-            cylinder.transform.position = new Vector3(locX, locY , parentPos.z);
-            cylinder.transform.localScale = new Vector3(radiusX, length, radiusZ);
-	    cylinder.transform.localRotation = Quaternion.Euler(0, 0, 90); // Rotate cylinder 90 degrees (flow direction)
-            Renderer renderer = cylinder.GetComponent<Renderer>();
+            streamline.transform.position = new Vector3(locX, locY, parentPos.z);
+
+            // Set the streamline's rotation to the direction of the velocity at that point
+            float vx = data_setSL[i].vx;
+            float vy = data_setSL[i].vy;
+            float angle = Mathf.Atan2(vy, vx) * Mathf.Rad2Deg;
+            streamline.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + 90));
+            streamline.transform.localScale = new Vector3(radius, distance, radius);
+            Renderer renderer = streamline.GetComponent<Renderer>();
     
             int scaleIndex;
 
@@ -79,7 +90,6 @@ public class SLGen1 : MonoBehaviour
             Material material = new Material(Shader.Find("Standard"));
             material.color = color;
             renderer.material = material;
-
         }
         // Update Legend Max and Min values
         GameObject maxObject = GameObject.Find("Max 1");
@@ -89,5 +99,24 @@ public class SLGen1 : MonoBehaviour
         GameObject minObject = GameObject.Find("Min 1");
         TextMeshPro minText = minObject.GetComponent<TextMeshPro>();
         minText.text = "Min: " + minV.ToString("0.##E+00");
+    }
+
+    // Find the closest point in the data set to the given point
+    CSVReadVSL.PointsSL FindClosestPoint(CSVReadVSL.PointsSL point, CSVReadVSL.PointsSL[] points)
+    {
+        CSVReadVSL.PointsSL closest = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (CSVReadVSL.PointsSL p in points)
+        {
+            float distance = Vector2.Distance(new Vector2(point.x, point.y), new Vector2(p.x, p.y));
+            if (distance < closestDistance && distance != 0)
+            {
+                closest = p;
+                closestDistance = distance;
+            }
+        }
+
+        return closest;
     }
 }
